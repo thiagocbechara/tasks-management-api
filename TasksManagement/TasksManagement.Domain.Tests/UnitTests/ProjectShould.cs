@@ -39,19 +39,6 @@ public class ProjectShould
     }
 
     [Fact]
-    public void AllowRemoveNewTasks()
-    {
-        var project = new ProjectEntity();
-        var hasAddedNewTask = project.TryAddTask(CreateTask("Task 1", "Task description 1", TaskPriorityEnum.Low, 1));
-
-        bool hasRemoved = project.RemoveTask(1);
-
-        hasAddedNewTask.Should().BeTrue();
-        hasRemoved.Should().BeTrue();
-        project.Tasks.Should().BeEmpty();
-    }
-
-    [Fact]
     public void IdentifyWhenThereAreUnfinishedTasks()
     {
         var project = new ProjectEntity();

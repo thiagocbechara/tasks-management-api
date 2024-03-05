@@ -30,14 +30,4 @@ public class ProjectEntity
 
     public bool AreAllTasksFinished() =>
         Tasks.All(task => task.Status == TaskStatusEnum.Done);
-
-    public bool RemoveTask(int code)
-    {
-        var task = Tasks.FirstOrDefault(task => task.Code == code);
-        if (task is null)
-            return false;
-
-        Tasks.Remove(task);
-        return true;
-    }
 }
