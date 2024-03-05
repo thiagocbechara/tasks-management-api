@@ -1,6 +1,6 @@
 ﻿namespace TasksManagement.Domain.Enums;
 
-public enum TaskPriorityEnum
+public enum TaskPriority
 {
     Low,
     Medium,

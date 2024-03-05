@@ -1,23 +1,16 @@
 ﻿using FluentAssertions;
 using TasksManagement.Domain.Entities;
 using TasksManagement.Domain.Enums;
-using static TasksManagement.Domain.Entities.TaskEntity;
 
 namespace TasksManagement.Domain.Tests.UnitTests;
 
 public class ProjectShould
 {
-    private readonly TaskEntityBuilder _taskBuilder;
-    public ProjectShould()
-    {
-        _taskBuilder = new TaskEntityBuilder();
-    }
-
     [Fact]
     public void AllowAddNewTasks()
     {
         var project = new ProjectEntity();
-        var hasAddedNewTask = project.TryAddTask(CreateTask("Task 1", "Task description 1", TaskPriorityEnum.Low));
+        var hasAddedNewTask = project.TryAddTask(CreateTask("Task 1", "Task description 1", TaskPriority.Low));
 
         hasAddedNewTask.Should().BeTrue();
         project.Tasks.Should().HaveCount(1);
@@ -31,7 +24,7 @@ public class ProjectShould
         var hasAddedNewTask = true;
         for (var i = 0; i <= 20; i++)
         {
-            hasAddedNewTask = project.TryAddTask(CreateTask($"Task {i}", $"Task description {i}", TaskPriorityEnum.Low));
+            hasAddedNewTask = project.TryAddTask(CreateTask($"Task {i}", $"Task description {i}", TaskPriority.Low));
         }
 
         hasAddedNewTask.Should().BeFalse();
@@ -44,7 +37,7 @@ public class ProjectShould
         var project = new ProjectEntity();
         var taskName = "Task 1";
         var taskDescription = "Task 1";
-        var taskPriority = TaskPriorityEnum.Low;
+        var taskPriority = TaskPriority.Low;
         project.TryAddTask(CreateTask(taskName, taskDescription, taskPriority));
 
         var hasUnfinishedTasks = project.HasUnfinishedTasks();
@@ -65,12 +58,12 @@ public class ProjectShould
     public void IdentifyWhenAreAllTasksFinished()
     {
         var project = new ProjectEntity();
-        project.TryAddTask(CreateTask("Task 1", "Task description 1", TaskPriorityEnum.Low));
-        project.TryAddTask(CreateTask("Task 2", "Task description 2", TaskPriorityEnum.Medium));
-        var authorChanges = "Author";
+        project.TryAddTask(CreateTask("Task 1", "Task description 1", TaskPriority.Low));
+        project.TryAddTask(CreateTask("Task 2", "Task description 2", TaskPriority.Medium));
+        var authorChanges = 1;
         foreach (var task in project.Tasks)
         {
-            task.UpdateStatus(authorChanges, TaskStatusEnum.Done);
+            task.UpdateStatus(authorChanges, Enums.TaskProgressStatus.Done);
         }
 
         var areAllTasksFinished = project.AreAllTasksFinished();
@@ -79,22 +72,23 @@ public class ProjectShould
         project.Tasks.Should().HaveCount(2);
         project.Tasks.Should().AllSatisfy(task =>
         {
-            task.Status.Should().Be(TaskStatusEnum.Done);
+            task.Status.Should().Be(Enums.TaskProgressStatus.Done);
             task.ChangesHistory.Should().HaveCount(1);
-            task.ChangesHistory.Should().AllSatisfy(change => change.Author.Should().Be(authorChanges));
+            task.ChangesHistory.Should().AllSatisfy(change => change.Author.Code.Should().Be(authorChanges));
         });
     }
 
-    private TaskEntity CreateTask(
+    private static TaskEntity CreateTask(
         string taskName,
         string taskDescription,
-        TaskPriorityEnum taskPriority,
+        TaskPriority taskPriority,
         long code = 0) =>
-        _taskBuilder
-        .WithName(taskName)
-        .WithDescription(taskDescription)
-        .WithPriority(taskPriority)
-        .WithCode(code)
-        .Build();
+        new ()
+        {
+            Code = code,
+            Name = taskName,
+            Description = taskDescription,
+            Priority = taskPriority,
+        };
 
 }

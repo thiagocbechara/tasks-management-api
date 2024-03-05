@@ -2,75 +2,76 @@
 
 namespace TasksManagement.Domain.Entities;
 
-public partial class TaskEntity
+public class TaskEntity
 {
-    private TaskEntity()
+    public TaskEntity()
     {
         ChangesHistory = [];
         Comments = [];
+        Status = TaskProgressStatus.Pending;
     }
 
-    public long Code { get; private set; }
-    public string Name { get; private set; } = default!;
-    public string Description { get; private set; } = default!;
-    public DateTime Deadline { get; set; }
-    public TaskStatusEnum Status { get; private set; }
-    public TaskPriorityEnum Priority { get; private set; }
-    public IList<TaskChangeEntity> ChangesHistory { get; private set; }
-    public IList<TaskCommentEntity> Comments { get; private set; }
+    public long Code { get; set; }
+    public string Name { get; set; } = default!;
+    public string Description { get; set; } = default!;
+    public DateTime Deadline { get; init; }
+    public TaskProgressStatus Status { get; set; }
+    public TaskPriority Priority { get; init; }
+    public IList<TaskChangeEntity> ChangesHistory { get; set; }
+    public IList<TaskCommentEntity> Comments { get; set; }
 
-    public void Update(string author, string newName, string newDescription)
+    public void Update(long authorCode, string newName, string newDescription)
     {
-        UpdateName(author, newName);
-        UpdateDescription(author, newDescription);
+        UpdateName(authorCode, newName);
+        UpdateDescription(authorCode, newDescription);
     }
 
-    public void Update(string author, string newName, string newDescription, TaskStatusEnum newStatus)
+    public void Update(long authorCode, string newName, string newDescription, Enums.TaskProgressStatus newStatus)
     {
-        Update(author, newName, newDescription);
-        UpdateStatus(author, newStatus);
+        Update(authorCode, newName, newDescription);
+        UpdateStatus(authorCode, newStatus);
     }
 
-    private void UpdateName(string author, string newName)
+    private void UpdateName(long authorCode, string newName)
     {
         if (string.IsNullOrWhiteSpace(newName) || Name == newName)
             return;
-        AddChangeHistory(author, nameof(Name), Name, newName);
+        AddChangeHistory(authorCode, nameof(Name), Name, newName);
         Name = newName;
     }
 
-    private void UpdateDescription(string author, string newDescription)
+    private void UpdateDescription(long authorCode, string newDescription)
     {
         if (string.IsNullOrWhiteSpace(newDescription) || Description == newDescription)
             return;
-        AddChangeHistory(author, nameof(Description), Description, newDescription);
+        AddChangeHistory(authorCode, nameof(Description), Description, newDescription);
         Description = newDescription;
     }
 
-    public void UpdateStatus(string author, TaskStatusEnum newStatus)
+    public void UpdateStatus(long authorCode, Enums.TaskProgressStatus newStatus)
     {
         if (Status == newStatus)
             return;
-        AddChangeHistory(author, nameof(Status), Status.ToString(), newStatus.ToString());
+        AddChangeHistory(authorCode, nameof(Status), Status.ToString(), newStatus.ToString());
         Status = newStatus;
     }
 
-    public void AddComment(string author, string comment)
+    public void AddComment(long authorCode, string comment)
     {
         Comments.Add(new TaskCommentEntity
         {
-            Author = author,
+            Author = new() { Code = authorCode },
             Comment = comment
         });
 
-        AddChangeHistory(author, nameof(Comments), string.Empty, comment);
+        AddChangeHistory(authorCode, nameof(Comments), string.Empty, comment);
     }
 
-    private void AddChangeHistory(string author, string property, string previousValue, string newValue)
+    private void AddChangeHistory(long authorCode, string property, string previousValue, string newValue)
     {
         ChangesHistory.Add(new()
         {
-            Author = author,
+            Author = new() { Code = authorCode },
             When = DateTime.Now,
             Property = property,
             PreviousValue = previousValue,

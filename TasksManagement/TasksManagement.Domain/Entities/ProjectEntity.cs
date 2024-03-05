@@ -26,8 +26,8 @@ public class ProjectEntity
     }
 
     public bool HasUnfinishedTasks() =>
-        Tasks.Any(task => task.Status != TaskStatusEnum.Done);
+        Tasks.Any(task => task.Status != Enums.TaskProgressStatus.Done);
 
     public bool AreAllTasksFinished() =>
-        Tasks.All(task => task.Status == TaskStatusEnum.Done);
+        Tasks.All(task => task.Status == Enums.TaskProgressStatus.Done);
 }

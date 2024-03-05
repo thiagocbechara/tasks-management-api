@@ -1,7 +1,6 @@
 using FluentAssertions;
 using TasksManagement.Domain.Entities;
 using TasksManagement.Domain.Enums;
-using static TasksManagement.Domain.Entities.TaskEntity;
 
 namespace TasksManagement.Domain.Tests.UnitTests;
 
@@ -11,17 +10,18 @@ public class TaskShould
 
     public TaskShould()
     {
-        _task = new TaskEntityBuilder()
-            .WithName("Task 1")
-            .WithDescription("Description 1")
-            .WithPriority(TaskPriorityEnum.Low)
-            .Build();
+        _task = new TaskEntity
+        {
+            Name = "Task 1",
+            Description = "Description",
+            Priority = TaskPriority.Low
+        };
     }
 
     [Fact]
     public void RegisterChangeHistoryWhenIsChanged()
     {
-        var changesAuthor = "Author";
+        var changesAuthor = 1;
         var previousName = _task.Name;
         var previousDescription = _task.Description;
         var newName = "Task 1.1";
@@ -34,7 +34,7 @@ public class TaskShould
             .Should()
             .AllSatisfy(change =>
             {
-                change.Author.Should().Be(changesAuthor);
+                change.Author.Code.Should().Be(changesAuthor);
                 change.When.Date.Should().Be(DateTime.Today);
             })
             .And
@@ -52,7 +52,7 @@ public class TaskShould
     [Fact]
     public void RegisterChangeHistoryWhenCommentIsAdded()
     {
-        var author = "Author";
+        var author = 1;
         var comment = "A nice comment about this task!";
 
         _task.AddComment(author, comment);
@@ -61,7 +61,7 @@ public class TaskShould
         _task.Comments.Should()
             .AllSatisfy(taskComment =>
             {
-                taskComment.Author.Should().Be(author);
+                taskComment.Author.Code.Should().Be(author);
                 taskComment.Comment.Should().Be(comment);
             });
 
@@ -69,7 +69,7 @@ public class TaskShould
         _task.ChangesHistory.Should().AllSatisfy(
             change =>
             {
-                change.Author.Should().Be(author);
+                change.Author.Code.Should().Be(author);
                 change.When.Date.Should().Be(DateTime.Today);
                 change.Property.Should().Be(nameof(_task.Comments));
                 change.PreviousValue.Should().Be(string.Empty);
