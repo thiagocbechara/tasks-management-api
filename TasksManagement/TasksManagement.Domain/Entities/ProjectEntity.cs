@@ -1,6 +1,4 @@
-﻿using TasksManagement.Domain.Enums;
-
-namespace TasksManagement.Domain.Entities;
+﻿namespace TasksManagement.Domain.Entities;
 
 public class ProjectEntity
 {
