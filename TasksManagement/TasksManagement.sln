@@ -13,9 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TasksManagement.Domain", "T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TasksManagement.Domain.Tests", "TasksManagement.Domain.Tests\TasksManagement.Domain.Tests.csproj", "{86B1E8C1-A355-4CF3-A1AD-854E0E7E89E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TasksManagement.Application", "TasksManagement.Application\TasksManagement.Application.csproj", "{1BBFAD15-0041-4030-8768-F1FF13FC6D77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TasksManagement.Application", "TasksManagement.Application\TasksManagement.Application.csproj", "{1BBFAD15-0041-4030-8768-F1FF13FC6D77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TasksManagement.Application.Tests", "TasksManagement.Application.Tests\TasksManagement.Application.Tests.csproj", "{E46F7B4F-74DD-4FBF-96AB-F9249A4C9700}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TasksManagement.Application.Tests", "TasksManagement.Application.Tests\TasksManagement.Application.Tests.csproj", "{E46F7B4F-74DD-4FBF-96AB-F9249A4C9700}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TasksManagement.Infra.Database", "TasksManagement.Infra.Database\TasksManagement.Infra.Database.csproj", "{ABDAEE02-3273-4370-A717-54787AF6E165}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +45,10 @@ Global
 		{E46F7B4F-74DD-4FBF-96AB-F9249A4C9700}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E46F7B4F-74DD-4FBF-96AB-F9249A4C9700}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E46F7B4F-74DD-4FBF-96AB-F9249A4C9700}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABDAEE02-3273-4370-A717-54787AF6E165}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABDAEE02-3273-4370-A717-54787AF6E165}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABDAEE02-3273-4370-A717-54787AF6E165}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABDAEE02-3273-4370-A717-54787AF6E165}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +59,7 @@ Global
 		{86B1E8C1-A355-4CF3-A1AD-854E0E7E89E5} = {2CB76A5C-6FB2-426A-82F2-21DBEE6E347A}
 		{1BBFAD15-0041-4030-8768-F1FF13FC6D77} = {5E1BB891-AF5F-4A69-8B09-DC06B012DE44}
 		{E46F7B4F-74DD-4FBF-96AB-F9249A4C9700} = {2CB76A5C-6FB2-426A-82F2-21DBEE6E347A}
+		{ABDAEE02-3273-4370-A717-54787AF6E165} = {5E1BB891-AF5F-4A69-8B09-DC06B012DE44}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6A6682D4-D4D0-440D-A2C3-1D2B3A23EEDE}

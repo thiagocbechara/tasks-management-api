@@ -20,6 +20,7 @@ ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "./TasksManagement.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
+ARG DbConnectionString="Server=localhost;Database=TaskManagement;User ID=sa;Password=S8KaYSd9CW7cnfG1KSRA;TrustServerCertificate=true;MultipleActiveResultSets=true"
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "TasksManagement.API.dll"]

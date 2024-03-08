@@ -1,4 +1,4 @@
-﻿using TasksManagement.Domain.Entities;
+﻿using TasksManagement.Domain.Enums;
 
 namespace TasksManagement.Domain.Repositories;
 

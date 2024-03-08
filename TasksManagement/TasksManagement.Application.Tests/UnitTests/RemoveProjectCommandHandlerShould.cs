@@ -63,7 +63,7 @@ public class RemoveProjectCommandHandlerShould
             .ReturnsAsync(new ProjectEntity());
 
         _repositoryMock.Setup(r => r.DeleteAsync(command.Code, CancellationToken.None))
-            .ReturnsAsync(new ProjectEntity());
+            .Returns(Task.CompletedTask);
 
         var result = await _handler.Handle(command, CancellationToken.None);
 

@@ -1,4 +1,4 @@
-﻿namespace TasksManagement.Domain.Entities;
+﻿namespace TasksManagement.Domain.Enums;
 
 public enum UserRole
 {

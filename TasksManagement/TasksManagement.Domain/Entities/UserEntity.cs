@@ -1,4 +1,6 @@
-﻿namespace TasksManagement.Domain.Entities;
+﻿using TasksManagement.Domain.Enums;
+
+namespace TasksManagement.Domain.Entities;
 
 public class UserEntity
 {
