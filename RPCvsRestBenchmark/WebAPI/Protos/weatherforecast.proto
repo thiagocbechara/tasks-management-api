@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+
+option csharp_namespace = "WebAPI";
+
+service WeatherForecast {
+  // Sends a greeting
+  rpc SayHello (WeatherForecastRequest) returns (WeatherForecastReply);
+}
+
+// The request message containing the user's name.
+message WeatherForecastRequest {
+}
+
+message WeatherForecastReply{
+	repeated WeatherForecastItem items=1;
+}
+
+// The response message containing the greetings.
+message WeatherForecastItem {
+  google.protobuf.Timestamp date = 1;
+  int32 temperatureC = 2;
+  google.protobuf.StringValue summary = 3; //nullable
+  int32 temperatureF = 4;
+}

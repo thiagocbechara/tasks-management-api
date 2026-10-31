@@ -21,7 +21,6 @@ internal abstract class BaseRepository<TDomainEntity, TDbEntity>(
         var entry = await _context
                             .Set<TDbEntity>()
                             .AddAsync(dbEntity, cancellationToken);
-        await _context.SaveChangesAsync(cancellationToken);
 
         return _mapper.Map<TDomainEntity>(entry.Entity);
     }
